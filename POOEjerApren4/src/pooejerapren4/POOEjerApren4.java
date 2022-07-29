@@ -2,18 +2,20 @@
 package pooejerapren4;
 
 import pooejerapren4.entidades.Rectangulo;
+import pooejerapren4.servicios.ServicioRectangulo;
 
 
 public class POOEjerApren4 {
 
     
     public static void main(String[] args) {
-        Rectangulo rg = new Rectangulo();
-        rg.crearRectangulo();
-        System.out.println("Perímetro: "+rg.perimetroRectangulo());
-        System.out.println("Superficie: "+rg.superficieRectangulo());
+        ServicioRectangulo sr = new ServicioRectangulo();
+        Rectangulo rg = sr.crearRectangulo();
+        
+        sr.perimetroRectangulo(rg);
+        sr.superficieRectangulo(rg);
         System.out.println("");
-        rg.dibujarRectangulo();
+        sr.dibujarRectangulo(rg);
     }
     
 }
