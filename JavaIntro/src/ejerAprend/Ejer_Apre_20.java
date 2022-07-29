@@ -6,10 +6,11 @@ import java.util.Scanner;
 
 public class Ejer_Apre_20 {
     
-    public static void rellMatr(int[][] mat){
+    public static void rellMatr(int[][] mat, int dim){
         Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 do {
                     System.out.print("Ingrese el valor de la posición ["+i+"]["+j+"]: ");
                     mat[i][j]=scanner.nextInt();
@@ -28,28 +29,47 @@ public class Ejer_Apre_20 {
     }
     
     public static void main(String[] args){
-        int[][] mat = new int[3][3];
-        //Scanner scanner = new Scanner(System.in);
-        System.out.println("A continuacion se le pedirá que ingrese los valores de la matriz");
-        rellMatr(mat);
-        mostrarMatriz(mat,3);
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la dimension de la matriz cuadrada: ");
+        int dim = scanner.nextInt();
+        int[][] mat = new int[dim][dim];
+        int[] sumCol = new int[dim];
+        int[] sumFil = new int[dim];
         
-        int[] sumCol = {0,0,0};
-        int[] sumFil = {0,0,0};
+        System.out.println("A continuacion se le pedirá que ingrese los valores de la matriz");
+        rellMatr(mat,dim);
+        mostrarMatriz(mat,dim);
+        
+        for (int i = 0; i < dim; i++) {
+            sumCol[i]=0;
+            sumFil[i]=0;
+        }
+        
         int colP = 0;
         int colS = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 sumCol[j] += mat[i][j];
                 sumFil[i] += mat[i][j];
                 if (i==j) {
                     colP += mat[i][j];
-                    colS += mat[2-i][j];
+                    colS += mat[dim-1-i][j];
                 }
             }
         }
         
-        if (sumCol[0]==sumCol[1]&& sumCol[1]== sumCol[2] && sumCol[2]==sumFil[1] && sumFil[1]==sumFil[2] && sumFil[2]==colP && colP==colS) {
+        boolean conf = true;
+        for (int i = 0; i < dim-1; i++) {
+            if (sumCol[i]!=sumCol[i+1] || sumFil[i]!=sumFil[i+1]){
+                conf = false;
+            }
+        }
+        
+        if (sumCol[0]!=sumFil[0] || sumCol[0]!=colP || sumCol[0]!=colS) {
+            conf = false;
+        }
+        
+        if (conf){    
             System.out.println("Es una matriz magica");
         } else{
             System.out.println("No es una matriz magica");
