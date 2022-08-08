@@ -12,7 +12,7 @@ public class POOEjerApren5 {
         
         Scanner sc = new Scanner(System.in);
         
-        
+        Cuenta cta = new Cuenta();
         int op1;
         
         do {
@@ -29,7 +29,6 @@ public class POOEjerApren5 {
             
             switch (op1) {
                 case 1:
-                    Cuenta cta = new Cuenta();
                     cta.crearCuenta();
                     break;
                 case 2:
