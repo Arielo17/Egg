@@ -1,11 +1,11 @@
 
-package pooejerapren10;
+package principal;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
 
-public class POOEjerApren10 {
+public class Principal {
 
     
     public static void main(String[] args) {
