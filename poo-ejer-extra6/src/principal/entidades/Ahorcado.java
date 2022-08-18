@@ -7,7 +7,7 @@ public class Ahorcado {
     private String[] palabra;
     private char[] palabraEncontrada;
     private int letrasEncontradas = 0;
-    private int jugadas = 5;
+    private int jugadas = 8;
 
     public Ahorcado() {
     }

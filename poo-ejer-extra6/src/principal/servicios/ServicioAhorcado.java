@@ -66,21 +66,36 @@ public class ServicioAhorcado {
     public void juego(Ahorcado ahor){
         System.out.println("La palabra tiene " + ahor.getPalabra().length + " letras");
         String salieron = "";
+        boolean letraRepetida;
+        char[][] dibujo = new char[15][11];
         do {
+            letraRepetida = false;
             System.out.println("Tiene "+ ahor.getJugadas()+ " oportunidades");
+            dibujoAhorcado(ahor,dibujo);
             char letra;
             do {
+                
                 System.out.print("Ingrese una letra a buscar: ");
                 letra = sc.next().charAt(0);
+                for (int i = 0; i < salieron.length(); i++) {
+                    if (letra == salieron.charAt(i)){
+                        letraRepetida = true;
+                        System.out.println("La letra se encuentra repetida\nPerdió una oportunidad\n");
+                        ahor.setJugadas(ahor.getJugadas()-1);
+                    }
+                }
             } while (letra == ' ');
-            salieron = salieron + letra + "-";
-            System.out.println("Letras dichas: " + salieron.toUpperCase());
-            buscarLetra(ahor, letra);
-            
-        } while (ahor.getJugadas()>0 && ahor.getLetrasEncontradas()<ahor.getPalabra().length);
+            if (!letraRepetida){
+                salieron = salieron + letra + "-";
+                System.out.println("Letras dichas: " + salieron.toUpperCase());
+                buscarLetra(ahor, letra);
+            }
+           
+        } while (ahor.getJugadas()>0 && ahor.getLetrasEncontradas()<ahor.getPalabra().length || letraRepetida);
         if (ahor.getLetrasEncontradas() == ahor.getPalabra().length){
             System.out.println("HAS GANADO!!!");
         } else{
+            dibujoAhorcado(ahor,dibujo);
             System.out.println("HA PERDIDO!!");
             System.out.print("La palabra era: "); 
             for(int i=0; i<ahor.getPalabra().length; i++){
@@ -88,5 +103,90 @@ public class ServicioAhorcado {
             }
             System.out.println("");
         } 
+    }
+    
+    public void dibujoAhorcado(Ahorcado ahor, char[][] dibujo){
+        
+        switch (ahor.getJugadas()) {
+            case 8:
+                for(char[] row : dibujo){
+                Arrays.fill(row, ' ');
+                }
+                for (int i = 0; i < 15; i++) {
+                    if (i<14){
+                        dibujo[i][1] = '|';
+                    }
+                    if(i<11){
+                        dibujo[14][i] = '¯';
+                    }
+                    if(i>1 && i<6 ){
+                       dibujo[0][i] = '¯'; 
+                    }
+                    if(i<2){
+                        dibujo[i][6] = '|';
+                    }
+                }
+                break;
+            case 7:
+                for (int i = 2; i < 9; i++) {
+                    if(i>4 && i<8){
+                        dibujo[2][i] = '¯';
+                        dibujo[6][i] = '_';
+                    }
+                    if(i>2 && i<6){
+                        dibujo[i][4] = '|';
+                        dibujo[i][8] = '|';
+                    }
+                    dibujo[2][4] = '/';
+                    dibujo[2][8] = '\\';
+                    dibujo[6][4] = '\\';
+                    dibujo[6][8] = '/';
+                }
+                break;
+            case 6:
+                for (int i = 7; i < 12; i++) {
+                    dibujo[i][6] = '|';
+                }
+                break;
+            case 5: 
+                dibujo[9][7] = '\\';
+                dibujo[10][8]= '\\';
+                break;
+            case 4:
+                dibujo[9][5] = '/';
+                dibujo[10][4]= '/';
+                break;
+            case 3:
+                dibujo[12][7] = '\\';
+                dibujo[13][8]= '\\';
+                break;
+            case 2:
+                dibujo[12][5] = '/';
+                dibujo[13][4]= '/';
+                break;
+            case 1:
+                dibujo[3][5] = 'º';
+                dibujo[3][7] = 'º';
+                dibujo[4][6] = 'º';
+                dibujo[5][6] = '~';
+                break;
+            case 0:
+                dibujo[3][5] = 'x';
+                dibujo[3][7] = 'x';
+                dibujo[5][6] = '¬';
+                dibujo[14][3] = '\\';
+                dibujo[14][9] = '/';
+                for (int i = 4; i < 9; i++) {
+                    dibujo[14][i] = ' ';
+                }
+                break;
+        }
+        
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 11; j++) {
+                System.out.print(dibujo[i][j]);
+            }
+            System.out.println("");
+        }
     }
 }    
