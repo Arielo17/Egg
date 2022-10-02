@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         
         // Creamos una ArrayList denominado "Alfabeto" que contendra datos del tipo String
-        ArrayList<String> alfabeto = new ArrayList();
+        ArrayList<String> alfabeto = new ArrayList<>();
         
         // Ingreso de datos
         // Ingresamos los datos con add()
@@ -36,8 +36,8 @@ public class Main {
         }
         System.out.println("\n-----");
         
-        // Eliminar elementos
-        // Por medio del índice
+         //Eliminar elementos
+         //Por medio del índice
         alfabeto.remove(5);
         
         System.out.println("Removemos por índice:");
@@ -46,7 +46,7 @@ public class Main {
         }
         System.out.println("\n-----");
         
-        // Por elemento
+         //Por elemento
         alfabeto.remove("b");
         
         System.out.println("Removemos por elemento:");
@@ -55,7 +55,7 @@ public class Main {
         }
         System.out.println("\n-----");
         
-        // Iterator
+         //Iterator
         Iterator<String> itAlfabeto = alfabeto.iterator();
         while(itAlfabeto.hasNext()){
             if(itAlfabeto.next().equals("e")){

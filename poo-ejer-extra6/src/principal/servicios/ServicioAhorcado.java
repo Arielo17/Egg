@@ -1,4 +1,7 @@
-
+/**
+ * Juego de ahorcado, mostrando letras que se dicen, letras que van saliendo
+ * y el dibujo del ahorcado
+ */
 package principal.servicios;
 
 import java.util.Arrays;
@@ -12,6 +15,13 @@ public class ServicioAhorcado {
     
     Scanner sc = new Scanner(System.in).useDelimiter("\n");
     
+    /**
+     * creo un array de string para guardar la palabra seleccionada
+     * ademas, creo otro array que ira mostrando las letras que acierta
+     * luego envio los parametros al constructor
+     * 
+     * @return ahor de tipo Ahorcado
+     */
     public Ahorcado crearJuego(){
        
         String pal = seleccionarPalabra();
@@ -25,6 +35,12 @@ public class ServicioAhorcado {
         return ahor;
     }
     
+    /**
+     * creo un array de palabras que se iran seleccionando con Random para
+     * ser enviadas a la funcion crearJuego()
+     * 
+     * @return palabra[i] -> donde i es elegido aleatoriamente
+     */
     public String seleccionarPalabra(){
         String[] palabra = {"pizza","misil","amnesia","lavarropa","muchacho",
                             "numero","recolector","esqueleto","pariente",
@@ -36,6 +52,14 @@ public class ServicioAhorcado {
         return palabra[ThreadLocalRandom.current().nextInt(21)];
     }
     
+    /**
+     * buscamos si la letra ingresada por el usuario se encuentra en la palabra
+     * incógnita, si es asi asigna la letra al lugar correspondiente
+     * luego ejecuta las funciones mostrarEncontradas() y encontroLetra()
+     * 
+     * @param ahor -> ahorcado creado en crearJuego()
+     * @param letra -> letra que va ingresando el jugador
+     */
     public void buscarLetra(Ahorcado ahor, char letra){
         boolean encontro = false;
         for (int i = 0; i < ahor.getPalabra().length; i++) {
@@ -49,6 +73,11 @@ public class ServicioAhorcado {
         encontroLetra(ahor, encontro);
     }
     
+    /**
+     * mostramos las letras que se van encontrando en la palabra incógnito
+     * 
+     * @param encontradas 
+     */
     public void mostrarEncontradas(char[] encontradas){
         for (int i = 0; i < encontradas.length; i++) {
             System.out.print(Character.toUpperCase(encontradas[i])+ " ");
@@ -56,6 +85,13 @@ public class ServicioAhorcado {
         System.out.println("\n");
     }
     
+    /**
+     * en el caso de la letra no se encuentre, escribimos un mensaje y
+     * restamos una oportunidad a la cantidad de jugadas
+     * a
+     * @param ahor
+     * @param encontro 
+     */
     public void encontroLetra(Ahorcado ahor, boolean encontro){
         if (!encontro){
             System.out.println("La letra no se encuentra");
